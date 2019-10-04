@@ -4,6 +4,9 @@ void addAtEnd();
 void addAtBeg();
 void display();
 int length();
+void deleteBeg();
+void deleteEnd();
+void deleteParticular(int);
 
 struct node{
     int data;
@@ -20,7 +23,9 @@ int main(){
         printf("2. Add element in the beginning \n");
         printf("3. display all the elements \n");
         printf("4. Find the length of the list \n");
-        printf("5. Exit\n");
+        printf("5. Delete node from begenning \n");
+        printf("6. Delete node from end \n");
+        printf("7. Exit\n");
         scanf("%d", &option);
 
         switch(option){
@@ -28,7 +33,9 @@ int main(){
             case 2: addAtBeg(); printf("--------------------------------------\n"); break;
             case 3: display(); printf("--------------------------------------\n"); break;
             case 4: printf("The number of elements in the list : %d\n",length()); printf("--------------------------------------\n"); break;
-            case 5 : exit(0);
+            case 5: deleteBeg(); break;
+            case 6: deleteEnd(); break;
+            case 7: exit(0);
             default: printf("Invalid input"); printf("--------------------------------------\n");
         }
     }
@@ -101,4 +108,23 @@ void display(){
         }
         printf("\n");
     }
+}
+
+void deleteBeg(){
+    struct node *ptr;
+    ptr = root;
+    root = ptr->link;
+}
+
+void deleteEnd(){
+    struct node *ptr;
+    ptr = root;
+    while(ptr->link->link != NULL){
+        ptr = ptr->link;
+    }
+    ptr->link = NULL;
+}
+
+void deleteParticular(int ele){
+
 }
