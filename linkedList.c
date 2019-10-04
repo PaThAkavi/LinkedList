@@ -3,6 +3,7 @@
 void append();
 void display();
 int length();
+void insertbeg();
 
 struct node{
     int data;
@@ -15,6 +16,10 @@ int main(){
     append();
     append();
     append();
+    display();
+    printf("%d\n", length());
+    insertbeg();
+    insertbeg();
     display();
     printf("%d\n", length());
     return 0;
@@ -47,7 +52,7 @@ void display(){
     else{
         struct node *ptr;
         ptr = root;
-        while(ptr->link != NULL){
+        while(ptr != NULL){
             printf("%d->", ptr->data);
             ptr = ptr->link;
         }
@@ -63,10 +68,25 @@ int length(){
         struct node *ptr;
         ptr = root;
         int count = 0;
-        while(ptr->link != NULL){
-            ptr = ptr->link;
+        while(ptr != NULL){
             count ++ ;
+            ptr = ptr->link;
         }
         return count;
+    }
+}
+
+void insertbeg(){
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    printf("Enter node value to be inserted in the begenning : \n");
+    scanf("%d", &newnode->data);
+    newnode->link = NULL;
+    if(root == NULL){
+        root = newnode;
+    }
+    else{
+        newnode->link = root;
+        root = newnode;
     }
 }
