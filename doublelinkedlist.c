@@ -7,6 +7,7 @@ void insertAfter();
 void insertBefore();
 void deleteBeg();
 void deleteEnd();
+void deleteAfter();
 
 struct node{
     struct node *prev;
@@ -27,6 +28,7 @@ int main(){
         printf("6. delete from end\n");
         printf("7. display\n");
         printf("8. Quit\n");
+        printf("9. delete after a specific node\n");
 
         printf("Please enter your choice : \n");
         scanf("%d", &opt);
@@ -40,6 +42,7 @@ int main(){
             case 6: deleteEnd(); break;
             case 7: display(); break;
             case 8: exit(0);
+            case 9: deleteAfter(); break;
             default: printf("Invalid input\n"); 
         }
     }
@@ -160,6 +163,25 @@ void deleteEnd(){
             ptr = ptr->next;
         }
         ptr->prev->next = NULL;
+        free(ptr);
+    }
+}
+
+void deleteAfter(){
+    int ele;
+    if(root == NULL){
+        printf("No elements\n");
+    }
+    else{
+        printf("Enter the element to delete its next element : \n");
+        scanf("%d", &ele);
+        struct node *ptr;
+        ptr = root;
+        while(ptr->data != ele){
+            ptr = ptr->next;
+        }
+        ptr->next = ptr->next->next;
+        ptr->next->prev = ptr;
         free(ptr);
     }
 }
