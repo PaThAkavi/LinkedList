@@ -4,6 +4,7 @@ void insertBeg();
 void display();
 void insertEnd();
 void insertAfter();
+void insertBefore();
 
 struct node{
     struct node *prev;
@@ -14,18 +15,28 @@ struct node{
 struct node *root = NULL;
 
 int main(){
-    insertBeg();
-    display();
-    insertBeg();
-    display();
-    insertEnd();
-    display();
-    insertEnd();
-    display();
-    insertAfter();
-    display();
-    insertAfter();
-    display();
+    while(1){
+        int opt;
+        printf("1. insert at beginning\n");
+        printf("2. Insert in the end\n");
+        printf("3. Insert after a particular node\n");
+        printf("4. Insert before a particular node\n");
+        printf("5. display\n");
+        printf("6. Quit\n");
+
+        printf("Please enter your choice : \n");
+        scanf("%d", &opt);
+
+        switch(opt){
+            case 1: insertBeg(); break;
+            case 2: insertEnd(); break;
+            case 3: insertAfter(); break;
+            case 4: insertBefore(); break;
+            case 5: display(); break;
+            case 6: exit(0);
+            default: printf("Invalid input\n"); 
+        }
+    }
     return 0;
 }
 
@@ -69,7 +80,7 @@ void insertEnd(){
 }
 
 void insertAfter(){
-    int ele, data;
+    int ele;
     struct node *newnode;
     newnode = (struct node *)malloc(sizeof(struct node));
     newnode->prev = NULL;
@@ -91,6 +102,32 @@ void insertAfter(){
         newnode->prev = ptr;
         ptr->next->prev = newnode;
         ptr->next = newnode;
+    }
+}
+
+void insertBefore(){
+    int ele;
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->prev = NULL;
+    newnode->next = NULL;
+    printf("Enter data to be inserted\n");
+    scanf("%d", &newnode->data);
+    if(root == NULL){
+        root = newnode;
+    }
+    else{
+        printf("Enter the element before which insertion is to be taken place : \n");
+        scanf("%d", &ele);
+        struct node *ptr;
+        ptr = root;
+        while(ptr->next->data != ele){
+            ptr = ptr->next;
+        }
+        newnode->next = ptr->next;
+        newnode->prev = ptr;
+        ptr->next = newnode;
+        ptr->next->prev = newnode;
     }
 }
 
