@@ -3,6 +3,7 @@
 void insertBeg();
 void display();
 void insertEnd();
+void insertAfter();
 
 struct node{
     struct node *prev;
@@ -14,9 +15,16 @@ struct node *root = NULL;
 
 int main(){
     insertBeg();
+    display();
     insertBeg();
+    display();
     insertEnd();
+    display();
     insertEnd();
+    display();
+    insertAfter();
+    display();
+    insertAfter();
     display();
     return 0;
 }
@@ -57,6 +65,32 @@ void insertEnd(){
         }
         ptr->next = newnode;
         newnode->prev = ptr;
+    }
+}
+
+void insertAfter(){
+    int ele, data;
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->prev = NULL;
+    newnode->next = NULL;
+    printf("Enter the element to be inserted\n");
+    scanf("%d", &newnode->data);
+    if(root == NULL){
+        root = newnode;
+    }
+    else{
+        printf("Enter the element after which insertion should take place\n");
+        scanf("%d", &ele);
+        struct node *ptr;
+        ptr = root;
+        while(ptr->data != ele){
+            ptr = ptr->next;
+        }
+        newnode->next = ptr->next;
+        newnode->prev = ptr;
+        ptr->next->prev = newnode;
+        ptr->next = newnode;
     }
 }
 
