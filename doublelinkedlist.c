@@ -5,6 +5,8 @@ void display();
 void insertEnd();
 void insertAfter();
 void insertBefore();
+void deleteBeg();
+void deleteEnd();
 
 struct node{
     struct node *prev;
@@ -21,8 +23,10 @@ int main(){
         printf("2. Insert in the end\n");
         printf("3. Insert after a particular node\n");
         printf("4. Insert before a particular node\n");
-        printf("5. display\n");
-        printf("6. Quit\n");
+        printf("5. delete from start\n");
+        printf("6. delete from end\n");
+        printf("7. display\n");
+        printf("8. Quit\n");
 
         printf("Please enter your choice : \n");
         scanf("%d", &opt);
@@ -32,8 +36,10 @@ int main(){
             case 2: insertEnd(); break;
             case 3: insertAfter(); break;
             case 4: insertBefore(); break;
-            case 5: display(); break;
-            case 6: exit(0);
+            case 5: deleteBeg(); break;
+            case 6: deleteEnd(); break;
+            case 7: display(); break;
+            case 8: exit(0);
             default: printf("Invalid input\n"); 
         }
     }
@@ -128,6 +134,33 @@ void insertBefore(){
         newnode->prev = ptr;
         ptr->next = newnode;
         ptr->next->prev = newnode;
+    }
+}
+
+void deleteBeg(){
+    if(root == NULL){
+        printf("List is empty\n");
+    }
+    else{
+        struct node* ptr;
+        ptr = root;
+        root = ptr->next;
+        free(ptr);
+    }
+}
+
+void deleteEnd(){
+    if(root == NULL){
+        printf("List is empty\n");
+    }
+    else{
+        struct node *ptr;
+        ptr = root;
+        while(ptr->next != NULL){
+            ptr = ptr->next;
+        }
+        ptr->prev->next = NULL;
+        free(ptr);
     }
 }
 
